@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class SnakeController : MonoBehaviour
 {
+    [Header("Listener Events")]
+    [SerializeField] private VoidEventChannelSO _eventCollectFood;
+
     private SnakeMovement _snakeMovement;
 
     private List<Transform> _snakeParts;
@@ -24,6 +27,16 @@ public class SnakeController : MonoBehaviour
         _snakeNextMove = new List<Vector2>();
 
         _snakeMovement.Initialize(this);
+    }
+
+    private void Start()
+    {
+        _eventCollectFood.onEventRaised += IncreaseSizeSnake;
+    }
+
+    private void OnDestroy()
+    {
+        _eventCollectFood.onEventRaised -= IncreaseSizeSnake;
     }
 
     public void InitializeMoves(Vector2 movement)
@@ -53,5 +66,11 @@ public class SnakeController : MonoBehaviour
         {
             _snakeParts[i].position += (Vector3)_snakeNextMove[i] * ConstantsManager.DISTANCE_BETWEEN_SNAKE_PARTS;
         }
+    }
+
+    private void IncreaseSizeSnake()
+    {
+        // Size is increased before moving snake.
+        
     }
 }
