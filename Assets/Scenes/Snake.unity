@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 182827023}
   - component: {fileID: 182827024}
+  - component: {fileID: 182827025}
   m_Layer: 0
   m_Name: Snake
   m_TagString: Untagged
@@ -169,7 +170,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4d4440a03fbeb74d9101e19ce7f8abe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tickTimeMovement: 1
+  _tickTimeMovement: 0.25
+--- !u!114 &182827025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 182827022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b3a3d6b062765d45b620bdd170ccb80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &475907473
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,7 +195,7 @@ GameObject:
   - component: {fileID: 475907475}
   m_Layer: 0
   m_Name: Body
-  m_TagString: Untagged
+  m_TagString: Body
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -195,7 +208,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 475907473}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.6, y: 0, z: 0}
+  m_LocalPosition: {x: -8.2, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 182827023}
@@ -347,7 +360,7 @@ GameObject:
   - component: {fileID: 1860474403}
   m_Layer: 0
   m_Name: Head
-  m_TagString: Untagged
+  m_TagString: Head
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -411,7 +424,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1860474402}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalPosition: {x: -7.6, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 182827023}
@@ -429,7 +442,7 @@ GameObject:
   - component: {fileID: 2071305585}
   m_Layer: 0
   m_Name: Body
-  m_TagString: Untagged
+  m_TagString: Body
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -442,7 +455,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2071305583}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.2, y: 0, z: 0}
+  m_LocalPosition: {x: -8.8, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 182827023}
