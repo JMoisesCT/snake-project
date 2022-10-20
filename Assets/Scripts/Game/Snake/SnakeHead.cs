@@ -12,13 +12,13 @@ public class SnakeHead : MonoBehaviour
         if (collision.CompareTag(NamesManager.TAG_NAME_FOOD))
         {
             _eventCollectFood.RaiseEvent();
-            // Relocate food randomly inside the game field.
-            int randomX = Random.Range(ConstantsManager.MIN_X_LIMIT_GAME_GRID,
-                ConstantsManager.MAX_X_LIMIT_GAME_GRID + 1);
-            int randomY = Random.Range(ConstantsManager.MIN_Y_LIMIT_GAME_GRID, 
-                ConstantsManager.MAX_Y_LIMIT_GAME_GRID + 1);
-            collision.transform.position = new Vector3(randomX * ConstantsManager.DISTANCE_BETWEEN_SNAKE_PARTS,
-                randomY * ConstantsManager.DISTANCE_BETWEEN_SNAKE_PARTS, 0f);
+            SnakeFood food = collision.GetComponent<SnakeFood>();
+            if (food == null)
+            {
+                Debug.LogError($"SnakeHead.OnTriggerEnter2D food is null");
+                return;
+            }
+            food.RelocateInNewPosition();
         }
     }
 }
