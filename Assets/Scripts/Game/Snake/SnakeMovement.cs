@@ -13,23 +13,19 @@ public class SnakeMovement : MonoBehaviour
     private Vector2 _movement;
     private Vector2 _lastMovement;
 
-    private void Awake()
+    public void Initialize(SnakeController snakeController)
     {
-        _snakeController = GetComponent<SnakeController>();
+        _snakeController = snakeController;
 
         _timer = _tickTimeMovement;
         _movement = new Vector2(1f, 0f); // By default the snake will move to the right.
         _lastMovement = _movement;
-    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
+        _snakeController.InitializeMoves(_movement);
     }
 
     // Update is called once per frame
-    void Update()
+    public void DoUpdate()
     {
         DetectInput();
 
