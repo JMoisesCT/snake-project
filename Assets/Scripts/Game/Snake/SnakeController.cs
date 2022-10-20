@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SnakeController : MonoBehaviour
 {
+    [SerializeField] private GameObject _prefabSnakeBody;
+
     [Header("Listener Events")]
     [SerializeField] private VoidEventChannelSO _eventCollectFood;
 
@@ -70,7 +72,15 @@ public class SnakeController : MonoBehaviour
 
     private void IncreaseSizeSnake()
     {
-        // Size is increased before moving snake.
-        
+        GameObject newBody = Instantiate(_prefabSnakeBody, transform);
+        // New body is placed before the last snake body.
+        Vector2 lastBodyMove = _snakeNextMove[_snakeNextMove.Count - 1];
+        Vector3 lastBodyPosition = _snakeParts[_snakeParts.Count - 1].position;
+        float newPosX = lastBodyPosition.x - lastBodyMove.x * ConstantsManager.DISTANCE_BETWEEN_SNAKE_PARTS;
+        float newPosY = lastBodyPosition.y - lastBodyMove.y * ConstantsManager.DISTANCE_BETWEEN_SNAKE_PARTS;
+        Vector3 newPositionBody = new Vector3(newPosX, newPosY, 0f);
+        newBody.transform.position = newPositionBody;
+        _snakeParts.Add(newBody.transform);
+        _snakeNextMove.Add(lastBodyMove);
     }
 }
