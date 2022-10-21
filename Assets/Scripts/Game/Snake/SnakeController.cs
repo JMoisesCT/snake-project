@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,7 +12,7 @@ public class SnakeController : MonoBehaviour
     private SnakeMovement _snakeMovement;
 
     private List<Transform> _snakeParts;
-    private List<Vector2> _snakeNextMove;
+    private List<Vector2> _snakeMovementsList;
 
     private bool _finishSnakeMovement;
 
@@ -29,7 +28,7 @@ public class SnakeController : MonoBehaviour
             _snakeParts.Add(bodyParts[i].transform);
         }
 
-        _snakeNextMove = new List<Vector2>();
+        _snakeMovementsList = new List<Vector2>();
 
         _snakeMovement.Initialize(this);
     }
@@ -50,7 +49,7 @@ public class SnakeController : MonoBehaviour
     {
         for(int i = 0; i < _snakeParts.Count; ++i)
         {
-            _snakeNextMove.Add(movement);
+            _snakeMovementsList.Add(movement);
         }
     }
 
@@ -66,16 +65,16 @@ public class SnakeController : MonoBehaviour
     public void MoveSnake(Vector2 movement)
     {
         // Update all movements for the snake body.
-        for(int i = _snakeNextMove.Count - 1; i > 0; --i)
+        for(int i = _snakeMovementsList.Count - 1; i > 0; --i)
         {
-            _snakeNextMove[i] = _snakeNextMove[i - 1];
+            _snakeMovementsList[i] = _snakeMovementsList[i - 1];
         }
         // Head of the snake should have the latest movement made by the player.
-        _snakeNextMove[0] = movement;
+        _snakeMovementsList[0] = movement;
 
         for (int i = 0; i < _snakeParts.Count; ++i)
         {
-            _snakeParts[i].position += (Vector3)_snakeNextMove[i] * ConstantsManager.DISTANCE_BETWEEN_SNAKE_PARTS;
+            _snakeParts[i].position += (Vector3)_snakeMovementsList[i] * ConstantsManager.DISTANCE_BETWEEN_SNAKE_PARTS;
         }
     }
 
@@ -83,14 +82,14 @@ public class SnakeController : MonoBehaviour
     {
         GameObject newBody = Instantiate(_prefabSnakeBody, transform);
         // New body is placed before the last snake body.
-        Vector2 lastBodyMove = _snakeNextMove[_snakeNextMove.Count - 1];
+        Vector2 lastBodyMove = _snakeMovementsList[_snakeMovementsList.Count - 1];
         Vector3 lastBodyPosition = _snakeParts[_snakeParts.Count - 1].position;
         float newPosX = lastBodyPosition.x - lastBodyMove.x * ConstantsManager.DISTANCE_BETWEEN_SNAKE_PARTS;
         float newPosY = lastBodyPosition.y - lastBodyMove.y * ConstantsManager.DISTANCE_BETWEEN_SNAKE_PARTS;
         Vector3 newPositionBody = new Vector3(newPosX, newPosY, 0f);
         newBody.transform.position = newPositionBody;
         _snakeParts.Add(newBody.transform);
-        _snakeNextMove.Add(lastBodyMove);
+        _snakeMovementsList.Add(lastBodyMove);
     }
 
     private void OnSnakeGameOver()
