@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SnakeMovement : MonoBehaviour
 {
-    [SerializeField] private float _tickTimeMovement;
+    [SerializeField] private float _speedMove;
 
     private SnakeController _snakeController;
 
@@ -17,7 +17,7 @@ public class SnakeMovement : MonoBehaviour
     {
         _snakeController = snakeController;
 
-        _timer = _tickTimeMovement;
+        _timer = 1 / _speedMove;
         _movement = new Vector2(1f, 0f); // By default the snake will move to the right.
         _lastMovement = _movement;
 
@@ -33,7 +33,7 @@ public class SnakeMovement : MonoBehaviour
         if (_timer <= 0)
         {
             float timeOffset = _timer; // To be more precise with the ticks
-            _timer = _tickTimeMovement - timeOffset;
+            _timer = 1 / _speedMove - timeOffset;
             _lastMovement = _movement;
             _snakeController.MoveSnake(_movement);
         }
