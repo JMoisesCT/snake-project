@@ -6,6 +6,7 @@ public class SnakeHead : MonoBehaviour
 {
     [Header("Sender Events")]
     [SerializeField] private VoidEventChannelSO _eventCollectFood;
+    [SerializeField] private VoidEventChannelSO _eventSnakeGameOver;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -19,6 +20,13 @@ public class SnakeHead : MonoBehaviour
                 return;
             }
             food.RelocateInNewPosition();
+        }
+
+        // End Over Collision
+        if (collision.CompareTag(NamesManager.TAG_NAME_LIMIT) ||
+            collision.CompareTag(NamesManager.TAG_NAME_BODY))
+        {
+            _eventSnakeGameOver.RaiseEvent();
         }
     }
 }

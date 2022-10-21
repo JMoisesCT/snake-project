@@ -8,11 +8,14 @@ public class SnakeController : MonoBehaviour
 
     [Header("Listener Events")]
     [SerializeField] private VoidEventChannelSO _eventCollectFood;
+    [SerializeField] private VoidEventChannelSO _eventSnakeGameOver;
 
     private SnakeMovement _snakeMovement;
 
     private List<Transform> _snakeParts;
     private List<Vector2> _snakeNextMove;
+
+    private bool _finishSnakeMovement;
 
     private void Awake()
     {
@@ -34,11 +37,13 @@ public class SnakeController : MonoBehaviour
     private void Start()
     {
         _eventCollectFood.onEventRaised += IncreaseSizeSnake;
+        _eventSnakeGameOver.onEventRaised += OnSnakeGameOver;
     }
 
     private void OnDestroy()
     {
         _eventCollectFood.onEventRaised -= IncreaseSizeSnake;
+        _eventSnakeGameOver.onEventRaised -= OnSnakeGameOver;
     }
 
     public void InitializeMoves(Vector2 movement)
@@ -51,6 +56,10 @@ public class SnakeController : MonoBehaviour
 
     private void Update()
     {
+        if (_finishSnakeMovement)
+        {
+            return;
+        }
         _snakeMovement.DoUpdate();
     }
 
@@ -82,5 +91,10 @@ public class SnakeController : MonoBehaviour
         newBody.transform.position = newPositionBody;
         _snakeParts.Add(newBody.transform);
         _snakeNextMove.Add(lastBodyMove);
+    }
+
+    private void OnSnakeGameOver()
+    {
+        _finishSnakeMovement = true;
     }
 }
